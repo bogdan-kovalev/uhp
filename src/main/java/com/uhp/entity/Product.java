@@ -11,14 +11,17 @@ import java.util.List;
  * @author Bogdan Kovalev.
  */
 @Data
-public class User implements Entity {
+public class Product implements Entity {
     @Id
     private String id;
     @NonNull
-    private String name;
-    @NonNull
-    private String email;
-    private List<Product> products = new ArrayList();
+    private String title;
+    private String description;
 
-    private final String type = "user";
+    @NonNull
+    private Float cost;
+
+    private List<String> imagesIds = new ArrayList<>();
+
+    private final String type = "product";
 }
