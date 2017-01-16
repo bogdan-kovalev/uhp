@@ -1,6 +1,6 @@
 package com.uhp.repository;
 
-import com.uhp.entity.Product;
+import com.uhp.entity.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,6 +8,5 @@ import org.springframework.stereotype.Repository;
  * @author Bogdan Kovalev.
  */
 @Repository
-public interface ProductsRepository extends MongoRepository<Product, String> {
-    Product findById(String id);
+public interface UserRepository extends MongoRepository<User, String> {
 }

@@ -2,8 +2,8 @@ package com.uhp;
 
 import com.uhp.entity.Product;
 import com.uhp.entity.User;
-import com.uhp.repository.ProductsRepository;
-import com.uhp.repository.UsersRepository;
+import com.uhp.repository.ProductRepository;
+import com.uhp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,9 +15,9 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 public class PrototypeApplication implements CommandLineRunner {
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UserRepository userRepository;
     @Autowired
-    ProductsRepository productsRepository;
+    ProductRepository productRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(PrototypeApplication.class, args);
@@ -26,17 +26,17 @@ public class PrototypeApplication implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        usersRepository.deleteAll();
-        productsRepository.deleteAll();
+        userRepository.deleteAll();
+        productRepository.deleteAll();
 
         final Product product = new Product();
         product.setTitle("Flower");
         product.setCost(5.11f);
-        productsRepository.save(product);
+        productRepository.save(product);
 
-        usersRepository.save(new User("Marina", "marina@gmail.com"));
+        userRepository.save(new User("Marina", "marina@gmail.com"));
         final User anna = new User("Anna", "anna@gmail.com");
         anna.getProducts().add(product);
-        usersRepository.save(anna);
+        userRepository.save(anna);
     }
 }
