@@ -33,11 +33,21 @@
 			<groupId>org.springframework.hateoas</groupId>
 			<artifactId>spring-hateoas</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>io.katharsis</groupId>
+			<artifactId>katharsis-core</artifactId>
+			<version>RELEASE</version>
+		</dependency>
         <dependency>
-            <groupId>io.katharsis</groupId>
-            <artifactId>katharsis-servlet</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+			<groupId>io.katharsis</groupId>
+			<artifactId>katharsis-servlet</artifactId>
+			<version>RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>io.katharsis</groupId>
+			<artifactId>katharsis-spring</artifactId>
+			<version>RELEASE</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

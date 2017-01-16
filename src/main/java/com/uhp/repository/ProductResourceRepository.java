@@ -20,4 +20,9 @@ public class ProductResourceRepository extends AbstractResourceRepository<Produc
     MongoRepository<Product, String> getRepository() {
         return repository;
     }
+
+    @Override
+    public Class<Product> getResourceClass() {
+        return Product.class;
+    }
 }

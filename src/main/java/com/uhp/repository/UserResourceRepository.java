@@ -19,4 +19,9 @@ public class UserResourceRepository extends AbstractResourceRepository<User, Str
     MongoRepository<User, String> getRepository() {
         return repository;
     }
+
+    @Override
+    public Class<User> getResourceClass() {
+        return User.class;
+    }
 }

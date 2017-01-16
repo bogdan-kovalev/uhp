@@ -19,7 +19,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping(FilesController.PATH)
 public class FilesController {
-    public static final String PATH = "api/files";
+    public static final String PATH = "/api/files";
 
     @Autowired
     private FilesService filesService;
