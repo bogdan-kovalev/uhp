@@ -3,12 +3,9 @@ package com.uhp.controller;
 import com.uhp.dto.ProductDTO;
 import com.uhp.service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -22,19 +19,15 @@ public class ProductsController {
     @Autowired
     private ProductsService productsService;
 
-    @ResponseStatus(HttpStatus.OK)
-    @PostMapping(value = "/{id}/addimage")
-    void uploadProductImage(@PathVariable("id") String productId, @RequestParam("file") MultipartFile file) {
-        try {
-            productsService.attachImage(productId, file.getInputStream(), file.getOriginalFilename());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @PutMapping
+    ResponseEntity<ProductDTO> putProduct(@RequestBody ProductDTO putProductRequest) {
+        final ProductDTO productDTO = productsService.editProduct(putProductRequest);
+        return ResponseEntity.ok(productDTO);
     }
 
     @PostMapping
-    ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO addProductRequest) {
-        final ProductDTO productDTO = productsService.addProduct(addProductRequest);
+    ResponseEntity<ProductDTO> postProduct(@RequestBody ProductDTO postProductRequest) {
+        final ProductDTO productDTO = productsService.addProduct(postProductRequest);
         return ResponseEntity.ok(productDTO);
     }
 

@@ -29,12 +29,14 @@ public class PrototypeApplication implements CommandLineRunner {
         usersRepository.deleteAll();
         productsRepository.deleteAll();
 
-        final Product flower = new Product("Flower", 0.5f);
-        productsRepository.save(flower);
+        final Product product = new Product();
+        product.setTitle("Flower");
+        product.setCost(5.11f);
+        productsRepository.save(product);
 
         usersRepository.save(new User("Marina", "marina@gmail.com"));
         final User anna = new User("Anna", "anna@gmail.com");
-        anna.getProducts().add(flower);
+        anna.getProducts().add(product);
         usersRepository.save(anna);
     }
 }

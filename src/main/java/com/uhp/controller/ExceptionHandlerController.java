@@ -1,5 +1,7 @@
-package com.uhp.exception;
+package com.uhp.controller;
 
+import com.uhp.exception.EntityNotFoundException;
+import com.uhp.exception.NullPropertyException;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +17,8 @@ import java.util.List;
  * @author Bogdan Kovalev.
  */
 @ControllerAdvice
-public class ControllerExceptionHandler {
-    private static final Logger logger = LoggerFactory.getLogger(ControllerExceptionHandler.class);
+public class ExceptionHandlerController {
+    private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerController.class);
 
     @ExceptionHandler(value = {EntityNotFoundException.class})
     public ResponseEntity<ErrorResponse> entityNotFoundException(Exception e) {

@@ -2,7 +2,6 @@ package com.uhp.service;
 
 import com.uhp.dto.ProductDTO;
 
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -16,6 +15,5 @@ public interface ProductsService {
 
     ProductDTO addProduct(ProductDTO productDTO);
 
-    void attachImage(String productId, InputStream stream, String imageFileName);
-
+    ProductDTO editProduct(ProductDTO productDTO);
 }
