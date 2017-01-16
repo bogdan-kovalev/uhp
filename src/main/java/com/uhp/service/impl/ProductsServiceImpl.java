@@ -65,7 +65,7 @@ public class ProductsServiceImpl implements ProductsService {
 
     private Product findOneProduct(String id) {
         return Optional.ofNullable(productsRepository.findById(id))
-                .orElseThrow(() -> new EntityNotFoundException("Product not found - id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Product not found"));
     }
 
     private ProductDTO toProductDTO(Product product) {

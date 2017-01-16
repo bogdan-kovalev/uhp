@@ -40,7 +40,7 @@ public class UsersController {
     @GetMapping(value = "/{id}")
     ResponseEntity<Resource<User>> getUserById(@PathVariable("id") String id) {
         final User user = Optional.ofNullable(usersRepository.findById(id))
-                .orElseThrow(() -> new EntityNotFoundException("User not found - id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
         final Resource<User> userResource = userResourceAssembler.toResource(user);
         return ResponseEntity.ok(userResource);
     }
