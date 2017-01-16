@@ -1,6 +1,6 @@
 package com.uhp.service;
 
-import com.uhp.entity.User;
+import com.uhp.dto.UserDTO;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  *         Created on 1/16/17.
  */
 public interface UsersService {
-    List<User> getUsers();
+    List<UserDTO> getUsers();
 
-    User getUserById(String id);
+    UserDTO getUserById(String id);
 }

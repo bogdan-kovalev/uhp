@@ -1,7 +1,8 @@
 package com.uhp.service;
 
-import com.uhp.entity.Product;
+import com.uhp.dto.ProductDTO;
 
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -9,13 +10,12 @@ import java.util.List;
  *         Created on 1/16/17.
  */
 public interface ProductsService {
-    List<Product> getProducts();
+    List<ProductDTO> getProducts();
 
-    Product getProductById(String id);
+    ProductDTO getProductById(String id);
 
-    Product addProduct(ProductDTO productDTO);
+    ProductDTO addProduct(ProductDTO productDTO);
 
-    public static class ProductDTO {
+    void attachImage(String productId, InputStream stream, String imageFileName);
 
-    }
 }
