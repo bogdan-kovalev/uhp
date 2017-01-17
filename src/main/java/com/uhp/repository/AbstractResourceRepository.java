@@ -12,41 +12,41 @@ import java.io.Serializable;
  * @author Bogdan Kovalev
  *         Created on 1/16/17.
  */
-public abstract class AbstractResourceRepository<EntityClass, IdClass extends Serializable> implements ResourceRepositoryV2<EntityClass, IdClass> {
+public abstract class AbstractResourceRepository<Entity, Id extends Serializable> implements ResourceRepositoryV2<Entity, Id> {
 
-    abstract MongoRepository<EntityClass, IdClass> getRepository();
+    abstract MongoRepository<Entity, Id> getRepository();
 
     @Override
-    public EntityClass findOne(IdClass id, QuerySpec querySpec) {
+    public Entity findOne(Id id, QuerySpec querySpec) {
         return getRepository().findOne(id);
     }
 
     @Override
-    public ResourceList<EntityClass> findAll(QuerySpec querySpec) {
-        final DefaultResourceList<EntityClass> defaultResourceList = new DefaultResourceList<>();
+    public ResourceList<Entity> findAll(QuerySpec querySpec) {
+        final DefaultResourceList<Entity> defaultResourceList = new DefaultResourceList<>();
         defaultResourceList.addAll(getRepository().findAll());
         return defaultResourceList;
     }
 
     @Override
-    public ResourceList<EntityClass> findAll(Iterable<IdClass> ids, QuerySpec querySpec) {
-        final DefaultResourceList<EntityClass> defaultResourceList = new DefaultResourceList<>();
+    public ResourceList<Entity> findAll(Iterable<Id> ids, QuerySpec querySpec) {
+        final DefaultResourceList<Entity> defaultResourceList = new DefaultResourceList<>();
         getRepository().findAll(ids).forEach(defaultResourceList::add);
         return defaultResourceList;
     }
 
     @Override
-    public <S extends EntityClass> S save(S s) {
+    public <S extends Entity> S save(S s) {
         return getRepository().save(s);
     }
 
     @Override
-    public <S extends EntityClass> S create(S s) {
+    public <S extends Entity> S create(S s) {
         return getRepository().save(s);
     }
 
     @Override
-    public void delete(IdClass id) {
+    public void delete(Id id) {
         getRepository().delete(id);
     }
 }

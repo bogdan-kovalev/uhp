@@ -1,12 +1,12 @@
 import DS from "ember-data";
 
-export default DS.RESTSerializer.extend({
-  normalizeResponse(store, primaryModelClass, hateoasPayload, id, requestType) {
-    let restPayload = {};
-    hateoasPayload.meta = {};
-    hateoasPayload.meta.links = hateoasPayload.links;
-    delete hateoasPayload.links;
-    restPayload[primaryModelClass.modelName] = hateoasPayload;
-    return this._super(store, primaryModelClass, restPayload, id, requestType);
+export default DS.JSONAPISerializer.extend({
+  modelNameFromPayloadKey (key) {
+    const modelName = this._super(key);
+    return `resources/${modelName}`;
+  },
+
+  payloadKeyFromModelName (modelName) {
+    return this._super(modelName.replace('resources/', ''));
   }
 });

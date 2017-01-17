@@ -1,3 +1,4 @@
 export const Types = {
-  User: 'api/user'
+  User: 'resources/user',
+  Product: 'resources/product'
 };

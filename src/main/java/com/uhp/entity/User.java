@@ -2,6 +2,7 @@ package com.uhp.entity;
 
 import io.katharsis.resource.annotations.JsonApiId;
 import io.katharsis.resource.annotations.JsonApiResource;
+import io.katharsis.resource.annotations.JsonApiToMany;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -20,5 +21,7 @@ public class User implements Entity {
     private String name;
     @NonNull
     private String email;
-    private List<Product> products = new ArrayList();
+
+    @JsonApiToMany
+    private List<Product> products = new ArrayList<>();
 }
