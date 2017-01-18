@@ -29,18 +29,18 @@ public class PrototypeApplication implements CommandLineRunner {
         userRepository.deleteAll();
         productRepository.deleteAll();
 
-        final User admin = new User("Admin", "bogdan.kovalev.job@gmail.com");
-        admin.setId("admin");
-        userRepository.save(admin);
+        final User admin = new User("admin", "Admin", "bogdan.kovalev.job@gmail.com");
+        final User marina = new User("Marina", "marina@gmail.com");
+        final User anna = new User("Anna", "anna@gmail.com");
+        final Product product = productRepository.save(new Product("Flower", 5.11f));
 
-        final Product product = new Product();
-        product.setTitle("Flower");
-        product.setCost(5.11f);
+        anna.getProducts().add(product);
+        product.setOwner(anna);
+
+        userRepository.save(anna);
         productRepository.save(product);
 
-        userRepository.save(new User("Marina", "marina@gmail.com"));
-        final User anna = new User("Anna", "anna@gmail.com");
-        anna.getProducts().add(product);
-        userRepository.save(anna);
+        userRepository.save(admin);
+        userRepository.save(marina);
     }
 }

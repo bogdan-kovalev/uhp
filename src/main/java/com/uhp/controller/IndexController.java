@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
     @GetMapping(value = "/")
     public String redirectToUi() {
-        return "redirect:/ui";
+        return "redirect:/ui/";
     }
 }

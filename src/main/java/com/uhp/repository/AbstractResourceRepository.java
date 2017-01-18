@@ -2,7 +2,6 @@ package com.uhp.repository;
 
 import io.katharsis.queryspec.QuerySpec;
 import io.katharsis.repository.ResourceRepositoryV2;
-import io.katharsis.resource.list.DefaultResourceList;
 import io.katharsis.resource.list.ResourceList;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -23,16 +22,12 @@ public abstract class AbstractResourceRepository<Entity, Id extends Serializable
 
     @Override
     public ResourceList<Entity> findAll(QuerySpec querySpec) {
-        final DefaultResourceList<Entity> defaultResourceList = new DefaultResourceList<>();
-        defaultResourceList.addAll(getRepository().findAll());
-        return defaultResourceList;
+        return querySpec.apply(getRepository().findAll());
     }
 
     @Override
     public ResourceList<Entity> findAll(Iterable<Id> ids, QuerySpec querySpec) {
-        final DefaultResourceList<Entity> defaultResourceList = new DefaultResourceList<>();
-        getRepository().findAll(ids).forEach(defaultResourceList::add);
-        return defaultResourceList;
+        return querySpec.apply(getRepository().findAll(ids));
     }
 
     @Override

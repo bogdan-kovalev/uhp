@@ -4,7 +4,7 @@ import io.katharsis.resource.annotations.JsonApiId;
 import io.katharsis.resource.annotations.JsonApiResource;
 import io.katharsis.resource.annotations.JsonApiToMany;
 import lombok.Data;
-import lombok.NonNull;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +17,24 @@ import java.util.List;
 public class User implements Entity {
     @JsonApiId
     private String id;
-    @NonNull
     private String name;
-    @NonNull
     private String email;
 
     @JsonApiToMany
+    @DBRef
     private List<Product> products = new ArrayList<>();
+
+    public User() {
+    }
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    public User(String id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
 }
