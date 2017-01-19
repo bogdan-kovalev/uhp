@@ -6,7 +6,12 @@
 	<groupId>com.uhp</groupId>
 	<artifactId>application</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+    <modules>
+        <module>jpa</module>
+        <module>services</module>
+        <module>webapp</module>
+    </modules>
+    <packaging>pom</packaging>
 
 	<name>UHP Prototype</name>
 	<description>Ukrainian Handmade Platform Prototype</description>
@@ -25,53 +30,19 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency>
-		<dependency>
+
+        <dependency>
 			<groupId>org.springframework.hateoas</groupId>
 			<artifactId>spring-hateoas</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>io.katharsis</groupId>
-			<artifactId>katharsis-core</artifactId>
-			<version>RELEASE</version>
-		</dependency>
-        <dependency>
-			<groupId>io.katharsis</groupId>
-			<artifactId>katharsis-servlet</artifactId>
-			<version>RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>io.katharsis</groupId>
-			<artifactId>katharsis-spring</artifactId>
-			<version>RELEASE</version>
-		</dependency>
 
-		<dependency>
+
+        <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-hateoas</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-zuul</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+
+    </dependencies>
 
 	<dependencyManagement>
 		<dependencies>
