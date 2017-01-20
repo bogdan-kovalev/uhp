@@ -11,12 +11,14 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -33,8 +35,10 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
     @Override
     public AuthenticationToken login(LoginCredentials loginCredentials) throws Exception {
-        final User user = userRepository.findByEmail(loginCredentials.email.getValue());
-        validateCredentials(user, loginCredentials);
+        final String email = loginCredentials.email.getValue();
+        final User user = userRepository.findByEmail(email);
+        validateCredentials(Optional.of(user)
+                .orElseThrow(() -> new AuthenticationCredentialsNotFoundException(email + "not found")), loginCredentials);
 
         return generateToken(createClaims(user));
     }

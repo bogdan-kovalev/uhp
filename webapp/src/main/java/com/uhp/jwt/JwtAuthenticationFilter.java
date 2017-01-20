@@ -4,6 +4,7 @@ import com.uhp.serviceobject.AuthenticatedUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -17,19 +18,20 @@ import java.util.List;
  * @author Bogdan Kovalev.
  */
 public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
-    private final List<String> skipJwtAuth;
+    private final List<AntPathRequestMatcher> allow_request_matchers;
 
     public JwtAuthenticationFilter(String defaultFilterProcessesUrl) {
         super(defaultFilterProcessesUrl);
-        skipJwtAuth = new ArrayList<>();
-        skipJwtAuth.add("/api/login");
-        skipJwtAuth.add("/api/register");
-        skipJwtAuth.add("/error");
+        allow_request_matchers = new ArrayList<>();
+        allow_request_matchers.add(new AntPathRequestMatcher("/"));
+        allow_request_matchers.add(new AntPathRequestMatcher("/ui/**"));
+        allow_request_matchers.add(new AntPathRequestMatcher("/api/login"));
+        allow_request_matchers.add(new AntPathRequestMatcher("/api/register"));
     }
 
     @Override
     protected boolean requiresAuthentication(HttpServletRequest request, HttpServletResponse response) {
-        return !skipJwtAuth.contains(request.getServletPath());
+        return allow_request_matchers.stream().noneMatch(matcher -> matcher.matches(request));
     }
 
     @Override

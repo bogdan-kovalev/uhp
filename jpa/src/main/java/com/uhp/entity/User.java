@@ -1,5 +1,6 @@
 package com.uhp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.katharsis.resource.annotations.JsonApiId;
 import io.katharsis.resource.annotations.JsonApiResource;
 import io.katharsis.resource.annotations.JsonApiToMany;
@@ -20,7 +21,9 @@ public class User implements Entity {
     private String name;
     private String email;
 
+    @JsonIgnore
     private String passwordHash;
+    @JsonIgnore
     private byte[] passwordSalt;
 
     public User(String name, String email, String passwordHash, byte[] passwordSalt) {

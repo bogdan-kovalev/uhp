@@ -43,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
-        JwtAuthenticationFilter jwtTokenFilter = new JwtAuthenticationFilter("/**");
+        JwtAuthenticationFilter jwtTokenFilter = new JwtAuthenticationFilter("/api");
         jwtTokenFilter.setAuthenticationManager(authenticationManager());
         jwtTokenFilter.setAuthenticationSuccessHandler(new JwtAuthenticationSuccessHandler());
         return jwtTokenFilter;
@@ -56,7 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 
                 .authorizeRequests()
-                .antMatchers("/api/login", "/api/register").permitAll()
+                .antMatchers("/**").permitAll()
                 .and()
 
                 .authorizeRequests().anyRequest().authenticated().and()

@@ -5,7 +5,7 @@ module.exports = function (environment) {
     modulePrefix: 'uhp-front',
     environment: environment,
     rootURL: '/ui/',
-    locationType: 'auto',
+    locationType: 'hash',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -21,6 +21,20 @@ module.exports = function (environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     }
+  };
+
+  ENV['ember-simple-auth'] = {
+    authorizer: 'authorizer:token'
+  };
+  ENV['ember-simple-auth-token'] = {
+    refreshAccessTokens: false,
+    serverTokenEndpoint: '/api/login',
+    identificationField: 'email',
+    passwordField: 'password',
+    tokenPropertyName: 'token',
+    authorizationPrefix: 'Bearer ',
+    authorizationHeaderName: 'Authorization',
+    headers: {}
   };
 
   if (environment === 'development') {
