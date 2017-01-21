@@ -1,14 +1,32 @@
 {{#paper-toolbar}}
   {{#paper-toolbar-tools}}
-    {{#paper-button iconButton=true}}
-      {{paper-icon "menu"}}
-    {{/paper-button}}
+
+    {{#paper-sidenav-toggle name="left" as |toggleAction|}}
+      {{#paper-button iconButton=true classNames="hide-gt-sm" onClick=(action toggleAction)}}
+        {{paper-icon "menu"}}
+      {{/paper-button}}
+    {{/paper-sidenav-toggle}}
     <h2>
       Ukrainian Handmade Platform
     </h2>
     <span class="flex"></span>
     {{#if session.isAuthenticated}}
-      {{#paper-button raised=true onClick=(action "invalidateSession")}}Log out{{/paper-button}}
+      {{#paper-menu offset="0 +50" as |menu|}}
+        {{sessionAccount.account.name}}
+        {{#menu.trigger}}
+          {{#paper-button iconButton=true}}
+            {{paper-icon "account_circle"}}
+          {{/paper-button}}
+        {{/menu.trigger}}
+        {{#menu.content width=3 as |content|}}
+          {{#content.menu-item onClick=(action "openProfile")}}
+            <span>Profile</span>
+          {{/content.menu-item}}
+          {{#content.menu-item onClick=(action "invalidateSession")}}
+            <span>Log out</span>
+          {{/content.menu-item}}
+        {{/menu.content}}
+      {{/paper-menu}}
     {{else}}
       {{#unless (eq navigator.currentPath 'login')}}
         {{#link-to 'login'}}
@@ -19,6 +37,25 @@
   {{/paper-toolbar-tools}}
 {{/paper-toolbar}}
 
-<div id="main">
-  {{outlet}}
-</div>
+{{#paper-sidenav-container}}
+
+  {{#paper-sidenav
+    name='left'
+    open=leftSideBarOpen
+    onToggle=(action (mut leftSideBarOpen))}}
+
+    {{#paper-toolbar as |toolbar|}}
+      {{#paper-toolbar-tools}}Menu{{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    {{#paper-content padding=true}}
+      {{link-to "Dashboard" "dashboard"}}
+    {{/paper-content}}
+  {{/paper-sidenav}}
+
+  {{#paper-card-content class="flex"}}
+    <div id="main">
+      {{outlet}}
+    </div>
+  {{/paper-card-content}}
+{{/paper-sidenav-container}}

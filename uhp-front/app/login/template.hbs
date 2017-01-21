@@ -1,7 +1,7 @@
 {{#paper-form onSubmit=(action "authenticate") as |form|}}
   <div class="layout-row layout-align-center-center">
     <div class="layout-column flex-30">
-      {{form.input label="E-mail" type="email" value=identification onChange=(action (mut identification))
+      {{form.input label="E-mail" type="email" value=email onChange=(action (mut email))
                    required=true
                    errorMessages=(hash
                      required="Email is required."

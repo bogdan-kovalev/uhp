@@ -1,8 +1,11 @@
 package com.uhp.controller;
 
 import com.uhp.dto.UserDTO;
+import com.uhp.entity.User;
+import com.uhp.repository.UserRepository;
 import com.uhp.service.UserAuthenticationService;
 import com.uhp.service.UserRegistrationService;
+import com.uhp.serviceobject.AuthenticatedUser;
 import com.uhp.serviceobject.AuthenticationToken;
 import com.uhp.serviceobject.LoginCredentials;
 import com.uhp.serviceobject.UserRegistrationInfo;
@@ -11,13 +14,14 @@ import com.uhp.tinytypes.Password;
 import com.uhp.tinytypes.UserName;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Bogdan Kovalev.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserServiceController {
 
     @Autowired
@@ -25,6 +29,9 @@ public class UserServiceController {
 
     @Autowired
     private UserAuthenticationService userAuthenticationService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @PostMapping
     @RequestMapping("/register")
@@ -52,10 +59,11 @@ public class UserServiceController {
         return this.userAuthenticationService.refreshToken(token);
     }
 
-    @GetMapping
-    @RequestMapping("/users")
-    public String getUsers() throws Exception {
-        return "Users!";
+    @GetMapping(value = "/current")
+    public UserDTO getCurrentUser(@AuthenticationPrincipal AuthenticatedUser authenticatedUser) {
+        final String id = authenticatedUser.getId();
+        final User currentUser = userRepository.findOne(id);
+        return new UserDTO(id, currentUser.getName(), currentUser.getEmail());
     }
 
     @RequiredArgsConstructor

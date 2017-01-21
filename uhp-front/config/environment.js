@@ -25,10 +25,12 @@ module.exports = function (environment) {
 
 
   ENV['ember-simple-auth'] = {
-    authorizer: 'authorizer:token'
+    authorizer: 'authorizer:token',
+    routeIfAlreadyAuthenticated: '/dashboard',
+    routeAfterAuthentication: '/dashboard'
   };
   ENV['ember-simple-auth-token'] = {
-    serverTokenEndpoint: '/api/auth',
+    serverTokenEndpoint: '/api/user/auth',
     identificationField: 'email',
     passwordField: 'password',
     tokenPropertyName: 'token',
@@ -36,7 +38,7 @@ module.exports = function (environment) {
     authorizationHeaderName: 'Authorization',
     headers: {},
     refreshAccessTokens: true,
-    serverTokenRefreshEndpoint: '/api/refresh-token',
+    serverTokenRefreshEndpoint: '/api/user/refresh-token',
     refreshLeeway: 300
   };
 
