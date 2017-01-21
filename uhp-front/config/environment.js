@@ -27,14 +27,16 @@ module.exports = function (environment) {
     authorizer: 'authorizer:token'
   };
   ENV['ember-simple-auth-token'] = {
-    refreshAccessTokens: false,
-    serverTokenEndpoint: '/api/login',
+    serverTokenEndpoint: '/api/auth',
     identificationField: 'email',
     passwordField: 'password',
     tokenPropertyName: 'token',
     authorizationPrefix: 'Bearer ',
     authorizationHeaderName: 'Authorization',
-    headers: {}
+    headers: {},
+    refreshAccessTokens: true,
+    serverTokenRefreshEndpoint: '/api/refresh-token',
+    refreshLeeway: 300
   };
 
   if (environment === 'development') {

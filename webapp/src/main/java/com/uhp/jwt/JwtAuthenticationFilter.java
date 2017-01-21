@@ -25,7 +25,8 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
         allow_request_matchers = new ArrayList<>();
         allow_request_matchers.add(new AntPathRequestMatcher("/"));
         allow_request_matchers.add(new AntPathRequestMatcher("/ui/**"));
-        allow_request_matchers.add(new AntPathRequestMatcher("/api/login"));
+        allow_request_matchers.add(new AntPathRequestMatcher("/api/auth"));
+        allow_request_matchers.add(new AntPathRequestMatcher("/api/refresh-token"));
         allow_request_matchers.add(new AntPathRequestMatcher("/api/register"));
     }
 

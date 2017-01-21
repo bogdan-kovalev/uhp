@@ -37,13 +37,19 @@ public class UserServiceController {
     }
 
     @PostMapping
-    @RequestMapping("/login")
-    public AuthenticationToken login(@RequestBody LoginRequestBody body) throws Exception {
-        return this.userAuthenticationService.login(
+    @RequestMapping("/auth")
+    public AuthenticationToken auth(@RequestBody LoginRequestBody body) throws Exception {
+        return this.userAuthenticationService.auth(
                 new LoginCredentials(
                         new Email(body.email), new Password(body.password)
                 )
         );
+    }
+
+    @PostMapping
+    @RequestMapping("/refresh-token")
+    public AuthenticationToken refreshToken(@RequestBody AuthenticationToken token) throws Exception {
+        return this.userAuthenticationService.refreshToken(token);
     }
 
     @GetMapping
