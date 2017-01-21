@@ -7,11 +7,15 @@
       Ukrainian Handmade Platform
     </h2>
     <span class="flex"></span>
-    {{#unless (eq navigator.currentPath 'login')}}
-      {{#link-to 'login'}}
-        {{#paper-button raised=true}}Sign in{{/paper-button}}
-      {{/link-to}}
-    {{/unless}}
+    {{#if session.isAuthenticated}}
+      {{#paper-button raised=true onClick=(action "invalidateSession")}}Log out{{/paper-button}}
+    {{else}}
+      {{#unless (eq navigator.currentPath 'login')}}
+        {{#link-to 'login'}}
+          {{#paper-button raised=true}}Sign in{{/paper-button}}
+        {{/link-to}}
+      {{/unless}}
+    {{/if}}
   {{/paper-toolbar-tools}}
 {{/paper-toolbar}}
 
