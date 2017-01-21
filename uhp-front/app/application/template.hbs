@@ -1,2 +1,20 @@
-<h1>Ukrainian Handmade Platform</h1>
-{{outlet}}
+{{#paper-toolbar}}
+  {{#paper-toolbar-tools}}
+    {{#paper-button iconButton=true}}
+      {{paper-icon "menu"}}
+    {{/paper-button}}
+    <h2>
+      Ukrainian Handmade Platform
+    </h2>
+    <span class="flex"></span>
+    {{#unless (eq navigator.currentPath 'login')}}
+      {{#link-to 'login'}}
+        {{#paper-button raised=true}}Sign in{{/paper-button}}
+      {{/link-to}}
+    {{/unless}}
+  {{/paper-toolbar-tools}}
+{{/paper-toolbar}}
+
+<div id="main">
+  {{outlet}}
+</div>

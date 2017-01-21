@@ -1,7 +1,27 @@
-<form {{action 'authenticate' on='submit'}}>
-  <label for="identification">Login</label>
-  {{input id='identification' placeholder='Enter Login' value=identification}}
-  <label for="password">Password</label>
-  {{input id='password' placeholder='Enter Password' type='password' value=password}}
-  <button type="submit">Login</button>
-</form>
+{{#paper-form onSubmit=(action "authenticate") as |form|}}
+  <div class="layout-row layout-align-center-center">
+    <div class="layout-column flex-30">
+      {{form.input label="E-mail" type="email" value=identification onChange=(action (mut identification))
+                   required=true
+                   errorMessages=(hash
+                     required="Email is required."
+                   )}}
+
+    </div>
+    <div class="layout-column flex-30">
+      {{form.input label="Password" type="password" value=password
+                   onChange=(action (mut password))
+                   required=true
+                   errorMessages=(hash
+                     required="Password is required."
+                   )}}
+    </div>
+  </div>
+  <div class="layout-row layout-align-center-center">
+    <div class="layout-column">
+      {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+        Sign in
+      {{/form.submit-button}}
+    </div>
+  </div>
+{{/paper-form}}
