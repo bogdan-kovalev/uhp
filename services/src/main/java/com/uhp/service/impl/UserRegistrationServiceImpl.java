@@ -20,6 +20,10 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 
     @Override
     public UserDTO register(UserRegistrationInfo registrationInfo) throws Exception {
+        final User byEmail = userRepository.findByEmail(registrationInfo.email.getValue());
+        if (byEmail != null) {
+            throw new RuntimeException("User already exists");
+        }
         final byte[] salt = HashingUtil.randomSalt();
         final String passwordHash = HashingUtil.createHash(registrationInfo.password, salt);
         final User newUser = new User(registrationInfo.name.getValue(), registrationInfo.email.getValue(), passwordHash, salt);
