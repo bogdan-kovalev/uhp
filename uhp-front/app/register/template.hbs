@@ -1,0 +1,27 @@
+{{#paper-form onSubmit=(action "register") as |form|}}
+  <div class="layout-row layout-align-center-center">
+    <div class="layout-column flex-30">
+      {{form.input label="Name" value=name onChange=(action (mut name))
+                   required=true
+                   errorMessages=(hash required="Name is required.")}}
+
+    </div>
+    <div class="layout-column flex-30">
+      {{form.input label="Email" value=email onChange=(action (mut email))
+                   required=true
+                   errorMessages=(hash required="Email is required.")}}
+
+    </div>
+    <div class="layout-column flex-30">
+      {{form.input label="Password" type="password" value=password onChange=(action (mut password))
+                   required=true errorMessages=(hash required="Password is required.")}}
+    </div>
+  </div>
+  <div class="layout-row layout-align-center-center">
+    <div class="layout-column">
+      {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+        Register
+      {{/form.submit-button}}
+    </div>
+  </div>
+{{/paper-form}}
