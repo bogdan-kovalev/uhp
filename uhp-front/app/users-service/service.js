@@ -10,9 +10,8 @@ export default Ember.Service.extend({
 
   register (registrationInfo) {
     const options = Ember.getOwner(this).lookup("adapter:application")
-      .ajaxOptions('api/user/current', 'POST', {data: registrationInfo});
-    return this.get('ajax')
-      .post('api/user/register', options);
+      .ajaxOptions('api/user/register', 'POST', {data: registrationInfo});
+    return this.get('ajax').post('api/user/register', options);
   },
 
   loadCurrentUser() {

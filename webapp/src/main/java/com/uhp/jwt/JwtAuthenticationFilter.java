@@ -18,21 +18,22 @@ import java.util.List;
  * @author Bogdan Kovalev.
  */
 public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
-    private final List<AntPathRequestMatcher> allow_request_matchers;
+    private final List<AntPathRequestMatcher> allowRequestMatchers;
 
     public JwtAuthenticationFilter(String defaultFilterProcessesUrl) {
         super(defaultFilterProcessesUrl);
-        allow_request_matchers = new ArrayList<>();
-        allow_request_matchers.add(new AntPathRequestMatcher("/"));
-        allow_request_matchers.add(new AntPathRequestMatcher("/ui/**"));
-        allow_request_matchers.add(new AntPathRequestMatcher("/api/user/auth"));
-        allow_request_matchers.add(new AntPathRequestMatcher("/api/user/refresh-token"));
-        allow_request_matchers.add(new AntPathRequestMatcher("/api/user/register"));
+        allowRequestMatchers = new ArrayList<>();
+        allowRequestMatchers.add(new AntPathRequestMatcher("/"));
+        allowRequestMatchers.add(new AntPathRequestMatcher("/favicon.ico"));
+        allowRequestMatchers.add(new AntPathRequestMatcher("/ui/**"));
+        allowRequestMatchers.add(new AntPathRequestMatcher("/api/user/auth"));
+        allowRequestMatchers.add(new AntPathRequestMatcher("/api/user/refresh-token"));
+        allowRequestMatchers.add(new AntPathRequestMatcher("/api/user/register"));
     }
 
     @Override
     protected boolean requiresAuthentication(HttpServletRequest request, HttpServletResponse response) {
-        return allow_request_matchers.stream().noneMatch(matcher -> matcher.matches(request));
+        return allowRequestMatchers.stream().noneMatch(matcher -> matcher.matches(request));
     }
 
     @Override

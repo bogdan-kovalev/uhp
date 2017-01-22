@@ -36,12 +36,11 @@ public abstract class AbstractResourceRepository<Entity, Id extends Serializable
 
     @Override
     public <S extends Entity> S create(S s) {
-        // does nothing
-        return null;
+        return getRepository().save(s);
     }
 
     @Override
     public void delete(Id id) {
-        // does nothing
+        getRepository().delete(id);
     }
 }
