@@ -8,6 +8,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validator;
+import java.util.Set;
+
 /**
  * @author Bogdan Kovalev.
  */
@@ -16,6 +21,9 @@ public class UserResourceRepository extends AbstractResourceRepository<User, Str
 
     @Autowired
     private UserRepository repository;
+
+    @Autowired
+    private Validator validator;
 
     @Override
     MongoRepository<User, String> getRepository() {
@@ -28,15 +36,20 @@ public class UserResourceRepository extends AbstractResourceRepository<User, Str
     }
 
     @Override
-    public User create(User s) {
-        final User byEmail = repository.findByEmail(s.getEmail());
+    public User create(User user) {
+        final Set<ConstraintViolation<User>> violations = validator.validate(user);
+        if (!violations.isEmpty()) {
+            throw new ConstraintViolationException(violations);
+        }
+
+        final User byEmail = repository.findByEmail(user.getEmail());
         if (byEmail != null) {
             throw new RepositoryException(
                     HttpStatus.UNPROCESSABLE_ENTITY.value(),
-                    new ErrorDataBuilder().setTitle("User with email " + s.getEmail() + " already exists").build()
+                    new ErrorDataBuilder().setTitle("User with email " + user.getEmail() + " already exists").build()
             );
         }
-        return getRepository().save(s);
+        return getRepository().save(user);
     }
 
     @Override
