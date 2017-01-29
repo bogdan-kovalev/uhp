@@ -46,7 +46,9 @@ public class UserResourceRepository extends AbstractResourceRepository<User, Str
         if (byEmail != null) {
             throw new RepositoryException(
                     HttpStatus.UNPROCESSABLE_ENTITY.value(),
-                    new ErrorDataBuilder().setTitle("User with email " + user.getEmail() + " already exists").build()
+                    new ErrorDataBuilder()
+                            .setSourcePointer("data/attributes/email")
+                            .setTitle("User with email " + user.getEmail() + " already exists").build()
             );
         }
         return getRepository().save(user);

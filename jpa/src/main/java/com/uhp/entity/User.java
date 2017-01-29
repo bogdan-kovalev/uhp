@@ -7,6 +7,7 @@ import io.katharsis.resource.annotations.JsonApiToMany;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,11 @@ public class User implements Entity {
     @JsonApiId
     private String id;
     private String name;
+
+    @Pattern(
+            regexp = "^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$",
+            message = "Wrong email address format"
+    )
     private String email;
 
     @JsonIgnore

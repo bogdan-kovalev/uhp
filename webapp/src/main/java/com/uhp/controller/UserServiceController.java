@@ -35,12 +35,12 @@ public class UserServiceController {
 
     @PostMapping
     @RequestMapping("/register")
-    public UserDTO register(@RequestBody RegistrationRequestBody body) throws Exception {
-        return this.userRegistrationService.register(
-                new UserRegistrationInfo(
-                        new UserName(body.name), new Email(body.email), new Password(body.password)
-                )
-        );
+    public UserDTO register(@RequestBody io.katharsis.request.dto.RequestBody body) throws Exception {
+        final String name = body.getSingleData().getAttributes().findValue("name").asText();
+        final String email = body.getSingleData().getAttributes().findValue("email").asText();
+        final String password = body.getSingleData().getAttributes().findValue("password").asText();
+        return this.userRegistrationService
+                .register(new UserRegistrationInfo(new UserName(name), new Email(email), new Password(password)));
     }
 
     @PostMapping
@@ -68,13 +68,6 @@ public class UserServiceController {
 
     @RequiredArgsConstructor
     static class LoginRequestBody {
-        final String email;
-        final String password;
-    }
-
-    @RequiredArgsConstructor
-    static class RegistrationRequestBody {
-        final String name;
         final String email;
         final String password;
     }

@@ -1,4 +1,5 @@
 import Ember from "ember";
+import {Types} from "../models/types";
 
 const {inject: {service}} = Ember;
 
@@ -9,9 +10,13 @@ export default Ember.Service.extend({
   account: null,
 
   register (registrationInfo) {
-    const options = Ember.getOwner(this).lookup("adapter:application")
-      .ajaxOptions('api/user/register', 'POST', {data: registrationInfo});
-    return this.get('ajax').post('api/user/register', options);
+    this.get('store').unloadAll(Types.RegistrationInfo);
+    const record = this.get('store').createRecord(Types.RegistrationInfo, registrationInfo);
+    return record.save().catch(() => {
+      return new Ember.RSVP.Promise((resolve, reject) => {
+        reject(record.get('errors'));
+      });
+    });
   },
 
   loadCurrentUser() {

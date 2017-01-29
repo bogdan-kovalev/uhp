@@ -5,6 +5,7 @@ import io.katharsis.errorhandling.ErrorData;
 import io.katharsis.errorhandling.ErrorResponse;
 import io.katharsis.errorhandling.exception.KatharsisMappableException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,15 +23,16 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(KatharsisMappableException.class)
     @ResponseBody
-    public ErrorResponse handleException(KatharsisMappableException ex) {
+    public ResponseEntity<ErrorResponse> handleException(KatharsisMappableException ex) {
         final ErrorData errorData = ex.getErrorData();
         final int status = ex.getHttpStatus();
-        return ErrorResponse.builder().setStatus(status).setSingleErrorData(errorData).build();
+        return ResponseEntity.status(status).body(ErrorResponse.builder().setStatus(status).setSingleErrorData(errorData).build());
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseBody
-    public ErrorResponse handleException(ConstraintViolationException ex) {
-        return validationModule.getConstraintViolationExceptionMapper().toErrorResponse(ex);
+    public ResponseEntity<ErrorResponse> handleException(ConstraintViolationException ex) {
+        final ErrorResponse errorResponse = validationModule.getConstraintViolationExceptionMapper().toErrorResponse(ex);
+        return ResponseEntity.status(errorResponse.getHttpStatus()).body(errorResponse);
     }
 }

@@ -1,0 +1,9 @@
+{{#if errors}}
+  <div class={{class}}>
+    {{#each errors as |err|}}
+      <span style="color: red">
+        {{err.message}}
+      </span>
+    {{/each}}
+  </div>
+{{/if}}
