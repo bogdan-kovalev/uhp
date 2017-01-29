@@ -1,21 +1,21 @@
 {{#paper-form onSubmit=(action "register") as |form|}}
   {{general-errors errors=errors class="layout-row layout-align-center-center"}}
   <div class="layout-row layout-align-center-center">
-    <div class="layout-column flex-50">
+    <div class="layout-column flex-xs-90 flex-50">
       {{form.input label="Name" value=name onChange=(action (mut name))
                    required=true
-                   errorMessages=(hash required="Name is required." email=errors.email)}}
+                   errorMessages=(hash required="Name is required.")}}
     </div>
   </div>
   <div class="layout-row layout-align-center-center">
-    <div class="layout-column flex-50">
+    <div class="layout-column flex-xs-90 flex-50">
       {{form.input label="Email" value=email onChange=(action (mut email))
                    required=true
                    errorMessages=(hash required="Email is required.")}}
     </div>
   </div>
   <div class="layout-row layout-align-center-center">
-    <div class="layout-column flex-50">
+    <div class="layout-column flex-xs-90 flex-50">
       {{form.input label="Password" type="password" value=password onChange=(action (mut password))
                    required=true errorMessages=(hash required="Password is required.")}}
     </div>

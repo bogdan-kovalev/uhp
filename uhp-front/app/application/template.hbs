@@ -44,12 +44,11 @@
     open=leftSideBarOpen
     onToggle=(action (mut leftSideBarOpen))}}
 
-    {{#paper-toolbar as |toolbar|}}
-      {{#paper-toolbar-tools}}Menu{{/paper-toolbar-tools}}
-    {{/paper-toolbar}}
-
     {{#paper-content padding=true}}
-      {{link-to "Dashboard" "dashboard"}}
+      <div class="layout-row">
+        {{#paper-button class="layout-fill" href="#/dashboard" title="Dashboard"}}{{paper-icon "dashboard"}}
+          Dashboard{{/paper-button}}
+      </div>
     {{/paper-content}}
   {{/paper-sidenav}}
 

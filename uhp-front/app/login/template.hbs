@@ -1,6 +1,6 @@
 {{#paper-form onSubmit=(action "authenticate") as |form|}}
   <div class="layout-row layout-align-center-center">
-    <div class="layout-column flex-50">
+    <div class="layout-column flex-xs-90 flex-50">
       {{form.input label="E-mail" type="email" value=email onChange=(action (mut email))
                    required=true
                    errorMessages=(hash required="Email is required.")}}
@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="layout-row layout-align-center-center">
-    <div class="layout-column flex-50">
+    <div class="layout-column flex-xs-90 flex-50">
       {{form.input label="Password" type="password" value=password onChange=(action (mut password))
                    required=true
                    errorMessages=(hash required="Password is required.")}}

@@ -10,12 +10,16 @@ export default Ember.Service.extend({
   account: null,
 
   register (registrationInfo) {
-    this.get('store').unloadAll(Types.RegistrationInfo);
     const record = this.get('store').createRecord(Types.RegistrationInfo, registrationInfo);
-    return record.save().catch(() => {
-      return new Ember.RSVP.Promise((resolve, reject) => {
-        reject(record.get('errors'));
-      });
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      record.save()
+        .then(() => {
+          resolve();
+        })
+        .catch((err) => {
+          console.log(err);
+          reject(err instanceof Ember.Error ? [{message: "An unexpected error have happened. Try to reload the page."}] : record.get('errors'));
+        });
     });
   },
 
