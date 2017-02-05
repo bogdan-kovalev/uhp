@@ -10,17 +10,29 @@ export default Ember.Service.extend({
   account: null,
 
   register (registrationInfo) {
-    const record = this.get('store').createRecord(Types.RegistrationInfo, registrationInfo);
+    const store = this.get('store');
+    store.unloadAll(Types.RegistrationInfo);
+    const record = store.createRecord(Types.RegistrationInfo, registrationInfo);
     return new Ember.RSVP.Promise((resolve, reject) => {
       record.save()
         .then(() => {
+          this.authenticate(record.getProperties('email', 'password'))
+            .then(() => store.unloadRecord(record));
           resolve();
         })
         .catch((err) => {
           console.log(err);
-          reject(err instanceof Ember.Error ? [{message: "An unexpected error have happened. Try to reload the page."}] : record.get('errors'));
+          reject(err instanceof Ember.Error ? [{message: "Unexpected error. Try to reload the page."}] : record.get('errors'));
         });
     });
+  },
+
+  authenticate (credentials) {
+    const {email, password} = credentials;
+    const authenticator = 'authenticator:jwt';
+
+    return this.get('session')
+      .authenticate(authenticator, {identification: email, password});
   },
 
   loadCurrentUser() {

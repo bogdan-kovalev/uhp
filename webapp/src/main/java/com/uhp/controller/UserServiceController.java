@@ -12,8 +12,11 @@ import com.uhp.serviceobject.UserRegistrationInfo;
 import com.uhp.tinytypes.Email;
 import com.uhp.tinytypes.Password;
 import com.uhp.tinytypes.UserName;
+import io.katharsis.response.JsonApiResponse;
+import io.katharsis.response.ResourceResponseContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,12 +38,14 @@ public class UserServiceController {
 
     @PostMapping
     @RequestMapping("/register")
-    public UserDTO register(@RequestBody io.katharsis.request.dto.RequestBody body) throws Exception {
+    public ResourceResponseContext register(@RequestBody io.katharsis.request.dto.RequestBody body) throws Exception {
         final String name = body.getSingleData().getAttributes().findValue("name").asText();
         final String email = body.getSingleData().getAttributes().findValue("email").asText();
         final String password = body.getSingleData().getAttributes().findValue("password").asText();
-        return this.userRegistrationService
-                .register(new UserRegistrationInfo(new UserName(name), new Email(email), new Password(password)));
+        final UserRegistrationInfo registrationInfo = new UserRegistrationInfo(new UserName(name), new Email(email), new Password(password));
+        final UserDTO userDTO = this.userRegistrationService.register(registrationInfo);
+        final JsonApiResponse apiResponse = new JsonApiResponse().setEntity(new User("default", userDTO.name, userDTO.email));
+        return new ResourceResponseContext(apiResponse, HttpStatus.OK.value());
     }
 
     @PostMapping
