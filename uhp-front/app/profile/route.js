@@ -1,5 +1,5 @@
 import Ember from "ember";
-import {Types} from "../models/types";
+import {Type} from "../models/type";
 import AuthenticatedRouteMixin from "ember-simple-auth/mixins/authenticated-route-mixin";
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
@@ -7,6 +7,6 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
   model () {
     const id = this.get('usersService.account.id');
-    return this.store.findRecord(Types.User, id).catch(() => ({}));
+    return this.store.findRecord(Type.User, id).catch(() => ({}));
   }
 });

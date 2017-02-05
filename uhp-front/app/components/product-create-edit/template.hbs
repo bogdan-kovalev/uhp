@@ -1,0 +1,18 @@
+{{#paper-form as |form|}}
+  {{general-errors errors=errors class="layout-row layout-align-center-center"}}
+
+  {{form.input label="Title" value=model.title onChange=(action (mut model.title))
+               required=true
+               errorMessages=(hash required="Title is required.") icon='title'}}
+
+  <div class="layout-row">
+
+    {{form.input textarea=true passThru=(hash rows=2 maxRows=5) maxlength=150 label='Description'
+                 value=model.description onChange=(action (mut model.description)) icon='description'}}
+
+  </div>
+
+  {{form.input label="Price" type="number" value=model.price onChange=(action (mut model.price))
+               required=true
+               errorMessages=(hash required="Price is required.") icon='attach money'}}
+{{/paper-form}}

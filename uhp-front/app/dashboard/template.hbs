@@ -1,1 +1,23 @@
-<img src="https://s-media-cache-ak0.pinimg.com/564x/d1/99/2a/d1992ad699ee23ae9778af04b288b536.jpg">
+{{#paper-button id="add-product" onClick=(action "showAddProduct") raised=true}}Add Product{{/paper-button}}
+
+{{#if showDialog}}
+  {{#paper-dialog class="flex-77" onClose=(action "cancel") origin="#add-product" clickOutsideToClose=true}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Add Product</h2>
+        <span class="flex"></span>
+        {{#paper-button iconButton=true onClick=(action "cancel")}}{{paper-icon icon="close"}}{{/paper-button}}
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+
+    {{#paper-dialog-content}}
+      {{product-create-edit model=newProduct}}
+    {{/paper-dialog-content}}
+
+    {{#paper-dialog-actions class="layout-row"}}
+      <span class="flex"></span>
+      {{#paper-button onClick=(action "cancel")}}Cancel{{/paper-button}}
+      {{#paper-button onClick=(action "save")}}Save{{/paper-button}}
+    {{/paper-dialog-actions}}
+  {{/paper-dialog}}
+{{/if}}

@@ -1,8 +1,8 @@
 import DS from "ember-data";
-import {Types} from "../../models/types";
+import {Type} from "../../models/type";
 
 export default DS.Model.extend({
   name: DS.attr('string'),
   email: DS.attr('string'),
-  products: DS.hasMany(Types.Product)
+  products: DS.hasMany(Type.Product, {async: false})
 });

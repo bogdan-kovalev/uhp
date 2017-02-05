@@ -65,10 +65,11 @@ public class UserServiceController {
     }
 
     @GetMapping(value = "/current")
-    public UserDTO getCurrentUser(@AuthenticationPrincipal AuthenticatedUser authenticatedUser) {
+    public ResourceResponseContext getCurrentUser(@AuthenticationPrincipal AuthenticatedUser authenticatedUser) {
         final String id = authenticatedUser.getId();
         final User currentUser = userRepository.findOne(id);
-        return new UserDTO(id, currentUser.getName(), currentUser.getEmail());
+        final JsonApiResponse apiResponse = new JsonApiResponse().setEntity(currentUser);
+        return new ResourceResponseContext(apiResponse, HttpStatus.OK.value());
     }
 
     @RequiredArgsConstructor
